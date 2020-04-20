@@ -5,17 +5,20 @@ html {
     text-align: center;
 }
 
+
 .topnav ul{
-  
     list-style-type: none;
     margin: auto;
     padding: 0;
     overflow: hidden;
     background-color: #4CAF50;
     width: 100%;
+
 }
 
-.topnav ul li {float: left;}
+.topnav ul li {
+   
+    float: left;}
 
 .topnav ul li a {
     display: block;

@@ -9,10 +9,10 @@ $statement->execute();
 $row = $statement->fetchAll();
 ?>
 <div class="container-sm" style="width: 90%; margin-top: 20px">
-    <table id="userTable" class="table table-striped">
+    <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">ID</th>
+            <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Birthday</th>
             <th scope="col">Gender</th>
@@ -24,20 +24,12 @@ $row = $statement->fetchAll();
             <tr>
                 <th><?php echo $v['id']; ?></th>
                 <td><?php echo $v['name']; ?></td>
-                <td><?php echo date("d/m/Y", strtotime($v['birthday']))?></td>
-                <td><?php echo $v['gender']; ?></td>
-                <td><?php echo $v['fingerprint']; ?></td>
+                <td><?php echo $v['birthday']; ?></td>
+                <td>@<?php echo $v['gender']; ?></td>
+                <td>@<?php echo $v['fingerprint']; ?></td>
             </tr>
         <?php } ?>
         </tbody>
     </table>
 </div>
-<script>
-    $(document).ready(function() {
-        $('#userTable').DataTable({
-            pageLength:7,
-            bLengthChange: false,
-        });
-    } );
-</script>
 <?php include "../includes/footer.php"; ?>
