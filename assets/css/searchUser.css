@@ -1,0 +1,10 @@
+.frame {
+    width: 100%;
+    border: 1px solid #4CAF50;
+    background-color: #000;
+    padding: 2px
+}
+.data {
+    width: 100%;
+
+}

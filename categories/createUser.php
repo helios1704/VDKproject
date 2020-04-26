@@ -1,5 +1,8 @@
 <?php
 include "../includes/header.php";
+if (!isset($_SESSION['username'])) {
+    header("Location: auth/login.php");
+}
 include "database/connect.php";
 ?>
 
@@ -29,29 +32,27 @@ if (isset($_POST['submit'])) {
 <script>
     $(document).ready(function () {
         setInterval(function () {
-            $("#data").load("fileContainer.php");
-        }, 500);
+
         setInterval(function () {
             $("#command2").load("temp.php");
         }, 500);
         $("#btnRequest").click(function () {
             $.ajax({
                 type: 'get',
-                url: 'registration.php',
+                url: 'createUser.php',
                 data: {request: 'create'},
                 success: function (data) {
                     alert("SI");
                     $("#command").html("Put your finger on sensor!");
-
                 }
             });
         });
     });
 </script>
-<link rel="stylesheet" href="../assets/css/registation.css">
+<link rel="stylesheet" href="../assets/css/createUser.css">
 
 <form action="" method="post">
-    <div class="container-sm" style="width: 65%; margin-top: 20px">
+    <div class="container-sm" style="width: 75%; margin-top: 20px">
         <label for="name"><b>Name</b></label>
         <input type="text" placeholder="Enter Name" name="name" required>
 
@@ -73,16 +74,12 @@ if (isset($_POST['submit'])) {
             <label class="custom-control-label" for="Another">Another</label>
         </div>
         <br>
-        <label for="fingerprint" class="text-danger" style="margin-right: 20px"><b>Push this button to insert your
-                fingerprint</b></label>
-        <!--        <input type="hidden" id="request" value="create">-->
-        <!--        <a href="?request=create" class="btn btn-danger" id="insertFinger">Bấm!</a>-->
+        <label for="fingerprint" class="text-danger" style="margin-right: 20px"><b>Push this button to insert your fingerprint</b></label>
         <button type="button" class="btn btn-danger" id="btnRequest">Bấm</button>
         <br>
         <b><label for="" id="command" class="text-warning"></label></b>
         <b><label for="" id="command2" class="text-warning"></label></b>
         <br>
-        <label for="" id="data" class="text-danger"></label>
         <button type="submit" class="registerbtn" name="submit">Create</button>
     </div>
 </form>
