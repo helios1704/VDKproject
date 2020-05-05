@@ -1,4 +1,8 @@
 <?php include "database/connect.php";
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: auth/login.php");
+}
 $file = "";
 if (isset($_GET['file'])) {
     $file = $_GET['file'];
@@ -62,7 +66,6 @@ file_put_contents('sendRequest.php', "");
                                 } else echo "--------"; ?>
                             </td>
                         </tr>
-
                     </table>
                 </td>
             </tr>

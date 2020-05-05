@@ -1,0 +1,1 @@
+<?php $request='search'; echo $request; ?>

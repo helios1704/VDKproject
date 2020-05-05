@@ -24,66 +24,48 @@ $row = $statement->fetchAll();
             <th scope="col">Action</th>
         </tr>
         </thead>
-        <tbody>
-        <?php foreach ($row as $k => $v) { ?>
-            <tr>
-                <th><?php echo $v['id']; ?></th>
-                <td><?php echo $v['name']; ?></td>
-                <td><?php echo date("d/m/Y", strtotime($v['birthday'])) ?></td>
-                <td><?php if ($v['gender'] == 1) echo "Male";
-                    elseif ($v['gender'] == 2) echo "Female";
-                    else echo "Another"; ?></td>
-                <td><?php echo $v['fingerprint']; ?></td>
-                <td><?php echo $v['created_at']; ?></td>
-
-                <td><?php echo $v['updated_at']; ?></td>
-                <td>
-                    <button style="padding: 4px 4px" type="button" name="edit" id="<?php echo $v["id"] ?>"
-                            class="btn btn-success edit">
-                        Edit
-                    </button>
-                    |
-                    <button style="padding: 4px 4px" type="button" name="delete" id="<?php echo $v["id"] ?>"
-                            class="btn btn-warning delete">
-                        Delete
-                    </button>
-                </td>
-            </tr>
-        <?php } ?>
-        </tbody>
     </table>
 </div>
 <script>
     $(document).ready(function () {
-        setInterval(function () {
-            table.ajax.reload();
-        }, 30000);
-
-
-        $('#userTable').DataTable({
+        table = $('#userTable').DataTable({
             pageLength: 7,
             bLengthChange: false,
             order: [[0, "desc"]],
+            serverMethod: 'post',
+            ajax: {
+                'url': 'getUsers.php'
+            },
+            columns: [
+                {data: 'id'},
+                {data: 'name'},
+                {data: 'birthday'},
+                {data: 'gender'},
+                {data: 'fingerprint'},
+                {data: 'created_at'},
+                {data: 'updated_at'},
+                {data: 'action'},
+            ]
         });
 
         $("#userTable").on('click', '.delete', function (e) {
             e.preventDefault();
             var empId = $(this).attr("id");
-            if (confirm("Are you sure you want to delete this employee?")) {
+            if (confirm("Are you sure you want to delete this user?")) {
                 $.ajax({
                     url: "deleteUser.php",
                     method: "POST",
                     data: {empId: empId},
-                    dataType: 'json',
                     success: function (data) {
-                        $('#userTable').DataTable().ajax.reload();
+                        table.ajax.reload();
+                    },
+                    error: function (data) {
                     }
                 })
             } else {
                 return false;
             }
         });
-
     });
 </script>
 <?php include "../includes/footer.php"; ?>

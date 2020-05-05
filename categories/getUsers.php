@@ -1,34 +1,40 @@
 <?php
 include "database/connect.php";
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: auth/login.php");
+}
 $sql_query = "SELECT * FROM users";
 $statement = $conn->prepare($sql_query);
 $statement->setFetchMode(PDO::FETCH_ASSOC);
 $statement->execute();
 $row = $statement->fetchAll();
 $userData = array();
+
 foreach ($row as $k => $v) {
-    $empRows = array();
-    $empRows[]=  $v['id'];
-    $empRows[]=  $v['name'];
-    $empRows[]=  date("d/m/Y", strtotime($v['birthday']));
-    if ($v['gender'] == 1)  {
-        $empRows[]="Male";
+    if ($v['gender'] == 1) {
+        $gender = "Male";
     }
-    if ($v['gender'] == 2)  {
-        $empRows[]="Female";
+    if ($v['gender'] == 2) {
+        $gender = "Female";
     }
-    if ($v['gender'] == 3)  {
-        $empRows[]="Another";
+    if ($v['gender'] == 3) {
+        $gender = "Another";
     }
-    $empRows[]=  $v['fingerprint'];
-    $empRows[]=  $v['created_at'];
-    $empRows[]=  $v['updated_at'];
-    $empRows[] = '<button style="padding: 4px 4px" type="button" name="edit" id="'.$v["id"].'" class="btn btn-warning btn-xs edit">Edit</button>';
-    $empRows[] = '<button style="padding: 4px 4px" type="button" name="delete" id="'.$v["id"].'" class="btn btn-danger btn-xs delete" >Delete</button>';
-    $userData[] = $empRows;
+    $userData[] = array(
+        'id' => $v['id'],
+        'name' => $v['name'],
+        'birthday' => date("d/m/Y", strtotime($v['birthday'])),
+        'gender' => $gender,
+        'fingerprint' => $v['fingerprint'],
+        'created_at' => $v['created_at'],
+        'updated_at' => $v['updated_at'],
+        'action' => '<button style="padding: 4px 4px" type="button" name="edit" id="' . $v["id"] . '" class="btn btn-warning btn-xs edit">Edit</button>|' .
+            '<button style="padding: 4px 4px" type="button" name="delete" id="' . $v["id"] . '" class="btn btn-danger btn-xs delete" >Delete</button>',
+    );
 }
 $output = array(
-    "draw"				=>	intval($_POST["draw"]),
-    "data"    			=> 	$userData
+    "data" => $userData
 );
+//print_r($userData);
 echo json_encode($output);
