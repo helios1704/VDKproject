@@ -18,7 +18,6 @@ $row = $statement->fetchAll();
             <th scope="col">Name</th>
             <th scope="col">Birthday</th>
             <th scope="col">Gender</th>
-            <th scope="col">Fingerprint Image</th>
             <th scope="col">Created_at</th>
             <th scope="col">Updated_at</th>
             <th scope="col">Action</th>
@@ -41,7 +40,6 @@ $row = $statement->fetchAll();
                 {data: 'name'},
                 {data: 'birthday'},
                 {data: 'gender'},
-                {data: 'fingerprint'},
                 {data: 'created_at'},
                 {data: 'updated_at'},
                 {data: 'action'},

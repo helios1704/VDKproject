@@ -81,8 +81,8 @@ if (!isset($_SESSION['username'])) {
         </div>
     </div>
     <script>
-        var myVar = setInterval(myTimer, 1000);
-        var myVar1 = setInterval(myTimer1, 1000);
+        var myVar = setInterval(myTimer, 500);
+        var myVar1 = setInterval(myTimer1, 500);
         var oldID = "";
         clearInterval(myVar1);
 

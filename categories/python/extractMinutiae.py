@@ -255,16 +255,18 @@ def detectCorePoint(or_im):
                             cons_min = cons
                             core = (i, j)
 
-
-    (x, y) = core
-    x = x*3 + 1
-    y = y*3 + 1
-    core = (x, y, or_im[x][y], 0)
+    if(len(core) == 0):
+        core = (0, 0, 0, 0)
+    else:
+        (x, y) = core
+        x = x*3 + 1
+        y = y*3 + 1
+        core = (x, y, or_im[x][y], 0)
 
     return core
 
 ######### read fingerprint image ##########
-path = r'fingerprintTemp\anh.jpg'
+path = r'fingerprintTemp\temp.jpg'
 img = cv2.imread(path, 0)
 #img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 ###########################################
@@ -315,7 +317,7 @@ for i in range(0, length):
 
 
 user_id = '000009'
-with open('../fingerprintData/database_db_input.txt', 'a') as db_f:
+with open('../fingerprintData/database_db_input.txt', 'w') as db_f:
     db_f.write(user_id)
     db_f.write('\n')
     db_f.write(str(final_minutiae_list))
@@ -329,15 +331,15 @@ with open('../fingerprintData/database_db_input.txt', 'a') as db_f:
 
 
 # skel = (skel == 0).astype(int)
-numPoints = len(minutiaeList)
-print(numPoints)
+#numPoints = len(minutiaeList)
+#print(numPoints)
 
-for i in range(0, numPoints):
-    (x, y) = minutiaeList[i][0:2]
-    (rr, cc) = skimage.draw.circle_perimeter(x, y, 3)
-    skel[rr, cc] = 1
-skel = (skel == 0).astype(np.uint8)
-skel = 255*skel
+#for i in range(0, numPoints):
+#    (x, y) = minutiaeList[i][0:2]
+#    (rr, cc) = skimage.draw.circle_perimeter(x, y, 3)
+#    skel[rr, cc] = 1
+#skel = (skel == 0).astype(np.uint8)
+#skel = 255*skel
 
 # list_num = len(list_point)
 # for i in range(0, list_num):

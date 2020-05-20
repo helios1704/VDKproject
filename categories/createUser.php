@@ -6,25 +6,39 @@ if (!isset($_SESSION['username'])) {
 include "database/connect.php";
 ?>
 
-<?php if (isset($_GET['request'])) {
+<?php
+if (isset($_GET['request'])) {
+    $sql = "SELECT max(id) as id FROM users";
+    $statement = $conn->prepare($sql);
+    $statement->setFetchMode(PDO::FETCH_ASSOC);
+    $statement->execute();
+    $row = $statement->fetchAll();
+    $write = (int)$row[0]['id'] + 1;
+    file_put_contents('fingerprintTemp/id_temp.txt', "$write");
     $request = $_GET['request'];
     $write = "<?php $" . "request='" . $request . "'; " . "echo $" . "request;" . " ?>";
     file_put_contents('sendRequest.php', $write);
+    // $output = shell_exec("python python/test.py");
+    //$output = shell_exec("python python/toImage.py");
+    // $output = shell_exec("python python/extractMinutiae.py");
+    //file_put_contents('sendRequest.php', "");
 }
 
 $fingerImage = file_get_contents("fileContainer.php");
+//$fingerImage = trim(preg_replace('/\s\s+/', ' ', $fingerImage));
 date_default_timezone_set('Asia/Ho_Chi_Minh');
+
 if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     $gender = $_POST['gender'];
     $birthday = $_POST['birthday'];
     $created_at = date("Y/m/d H:i:s");
-    $sql = "INSERT INTO users(name, birthday, gender, fingerprint, created_at) VALUES ('$name', '$birthday', $gender, '$fingerImage','$created_at')";
+    $sql = "INSERT INTO users(name, birthday, gender, created_at) VALUES ('$name', '$birthday', $gender,'$created_at')";
     $statement = $conn->prepare($sql);
     $statement->execute();
     file_put_contents('temp.php', "");
     file_put_contents('fileContainer.php', "");
-    file_put_contents('sendRequest.php', "");
+    // file_put_contents('sendRequest.php', "");
     header("Location: users.php");
 }
 ?>
@@ -32,7 +46,8 @@ if (isset($_POST['submit'])) {
 <script>
     $(document).ready(function () {
         setInterval(function () {
-
+            $("#data").load("fileContainer.php");
+        }, 500);
         setInterval(function () {
             $("#command2").load("temp.php");
         }, 500);
@@ -74,11 +89,13 @@ if (isset($_POST['submit'])) {
             <label class="custom-control-label" for="Another">Another</label>
         </div>
         <br>
-        <label for="fingerprint" class="text-danger" style="margin-right: 20px"><b>Push this button to insert your fingerprint</b></label>
+        <label for="fingerprint" class="text-danger" style="margin-right: 20px"><b>Push this button to insert your
+                fingerprint</b></label>
         <button type="button" class="btn btn-danger" id="btnRequest">Bấm</button>
         <br>
         <b><label for="" id="command" class="text-warning"></label></b>
         <b><label for="" id="command2" class="text-warning"></label></b>
+        <b><label for="" id="data" class="text-warning"></label></b>
         <br>
         <button type="submit" class="registerbtn" name="submit">Create</button>
     </div>

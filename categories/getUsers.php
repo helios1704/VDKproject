@@ -26,7 +26,6 @@ foreach ($row as $k => $v) {
         'name' => $v['name'],
         'birthday' => date("d/m/Y", strtotime($v['birthday'])),
         'gender' => $gender,
-        'fingerprint' => $v['fingerprint'],
         'created_at' => $v['created_at'],
         'updated_at' => $v['updated_at'],
         'action' => '<button style="padding: 4px 4px" type="button" name="edit" id="' . $v["id"] . '" class="btn btn-warning btn-xs edit">Edit</button>|' .

@@ -1,5 +1,4 @@
 <?php
-
 $data=$_POST["data"];
 $Write="$data";
 $Write1="<?php die(''); ?>";
