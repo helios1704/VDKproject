@@ -1,1 +1,0 @@
-<?php $request='10'; echo $request; ?>

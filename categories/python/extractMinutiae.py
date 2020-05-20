@@ -317,7 +317,10 @@ for i in range(0, length):
 
 
 user_id = '000009'
-with open('../fingerprintData/database_db_input.txt', 'w') as db_f:
+with open('fingerprintTemp/id_temp.txt', 'r') as id_temp:
+    user_id = id_temp.readline()
+
+with open('../fingerprintData/database_db_input.txt', 'a') as db_f:
     db_f.write(user_id)
     db_f.write('\n')
     db_f.write(str(final_minutiae_list))

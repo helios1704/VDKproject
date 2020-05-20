@@ -18,16 +18,12 @@ if (isset($_GET['request'])) {
     $request = $_GET['request'];
     $write = "<?php $" . "request='" . $request . "'; " . "echo $" . "request;" . " ?>";
     file_put_contents('sendRequest.php', $write);
-    // $output = shell_exec("python python/test.py");
-    //$output = shell_exec("python python/toImage.py");
-    // $output = shell_exec("python python/extractMinutiae.py");
-    //file_put_contents('sendRequest.php', "");
+    $output = shell_exec("python python/test.py");
+  //  $output = shell_exec("python python/toImage.py");
+   // $output = shell_exec("python python/extractMinutiae.py");
+    file_put_contents('sendRequest.php', "");
 }
-
-$fingerImage = file_get_contents("fileContainer.php");
-//$fingerImage = trim(preg_replace('/\s\s+/', ' ', $fingerImage));
 date_default_timezone_set('Asia/Ho_Chi_Minh');
-
 if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     $gender = $_POST['gender'];
@@ -36,9 +32,10 @@ if (isset($_POST['submit'])) {
     $sql = "INSERT INTO users(name, birthday, gender, created_at) VALUES ('$name', '$birthday', $gender,'$created_at')";
     $statement = $conn->prepare($sql);
     $statement->execute();
-    file_put_contents('temp.php', "");
-    file_put_contents('fileContainer.php', "");
-    // file_put_contents('sendRequest.php', "");
+
+    $output = shell_exec("python python/toImage.py");
+    $output = shell_exec("python python/extractMinutiae.py");
+    file_put_contents('sendRequest.php', "");
     header("Location: users.php");
 }
 ?>
@@ -52,13 +49,14 @@ if (isset($_POST['submit'])) {
             $("#command2").load("temp.php");
         }, 500);
         $("#btnRequest").click(function () {
+            $("#command").html("Put your finger on sensor!");
             $.ajax({
                 type: 'get',
                 url: 'createUser.php',
                 data: {request: 'create'},
                 success: function (data) {
-                    alert("SI");
-                    $("#command").html("Put your finger on sensor!");
+                    alert("Oke - Da nhap xong van tay!");
+                    $("#command").html("");
                 }
             });
         });
