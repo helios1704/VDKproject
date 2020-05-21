@@ -19,8 +19,8 @@ if (isset($_GET['request'])) {
     $write = "<?php $" . "request='" . $request . "'; " . "echo $" . "request;" . " ?>";
     file_put_contents('sendRequest.php', $write);
     $output = shell_exec("python python/test.py");
-  //  $output = shell_exec("python python/toImage.py");
-   // $output = shell_exec("python python/extractMinutiae.py");
+    // $output = shell_exec("python python/toImage.py");
+    // $output = shell_exec("python python/extractMinutiae.py");
     file_put_contents('sendRequest.php', "");
 }
 date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -32,7 +32,6 @@ if (isset($_POST['submit'])) {
     $sql = "INSERT INTO users(name, birthday, gender, created_at) VALUES ('$name', '$birthday', $gender,'$created_at')";
     $statement = $conn->prepare($sql);
     $statement->execute();
-
     $output = shell_exec("python python/toImage.py");
     $output = shell_exec("python python/extractMinutiae.py");
     file_put_contents('sendRequest.php', "");
@@ -42,14 +41,8 @@ if (isset($_POST['submit'])) {
 
 <script>
     $(document).ready(function () {
-        setInterval(function () {
-            $("#data").load("fileContainer.php");
-        }, 500);
-        setInterval(function () {
-            $("#command2").load("temp.php");
-        }, 500);
         $("#btnRequest").click(function () {
-            $("#command").html("Put your finger on sensor!");
+            $("#command").html("Place your finger on the sensor!");
             $.ajax({
                 type: 'get',
                 url: 'createUser.php',
@@ -92,8 +85,6 @@ if (isset($_POST['submit'])) {
         <button type="button" class="btn btn-danger" id="btnRequest">Bấm</button>
         <br>
         <b><label for="" id="command" class="text-warning"></label></b>
-        <b><label for="" id="command2" class="text-warning"></label></b>
-        <b><label for="" id="data" class="text-warning"></label></b>
         <br>
         <button type="submit" class="registerbtn" name="submit">Create</button>
     </div>

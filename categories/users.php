@@ -3,12 +3,6 @@ include "../includes/header.php";
 if (!isset($_SESSION['username'])) {
     header("Location: auth/login.php");
 }
-include "database/connect.php";
-$sql_query = "SELECT * FROM users";
-$statement = $conn->prepare($sql_query);
-$statement->setFetchMode(PDO::FETCH_ASSOC);
-$statement->execute();
-$row = $statement->fetchAll();
 ?>
 <div class="container-sm" style="width:100%; margin-top: 20px">
     <table id="userTable" class="table table-striped">
@@ -19,7 +13,6 @@ $row = $statement->fetchAll();
             <th scope="col">Birthday</th>
             <th scope="col">Gender</th>
             <th scope="col">Created_at</th>
-            <th scope="col">Updated_at</th>
             <th scope="col">Action</th>
         </tr>
         </thead>
@@ -41,7 +34,6 @@ $row = $statement->fetchAll();
                 {data: 'birthday'},
                 {data: 'gender'},
                 {data: 'created_at'},
-                {data: 'updated_at'},
                 {data: 'action'},
             ]
         });

@@ -27,16 +27,27 @@
     <div class="topnav d-flex">
         <div style="width: 80%">
             <ul class="">
-                <li><a href="index.php" class="<?php echo($_SERVER['PHP_SELF'] == "/VDKproject/categories/index.php" ? "active" : ""); ?>">Home</a></li>
-                <li><a href="users.php" class="<?php echo($_SERVER['PHP_SELF'] == "/VDKproject/categories/users.php" ? "active" : ""); ?>">Users</a></li>
-                <li><a href="createUser.php" class="<?php echo($_SERVER['PHP_SELF'] == "/VDKproject/categories/createUser.php" ? "active" : ""); ?>">Create User</a></li>
-                <li><a href="searchuser.php" class="<?php echo($_SERVER['PHP_SELF'] == "/VDKproject/categories/searchuser.php" ? "active" : ""); ?>">Search User</a></li>
+                <li><a href="index.php"
+                       class="<?php echo($_SERVER['PHP_SELF'] == "/VDKproject/categories/index.php" ? "active" : ""); ?>">Home</a>
+                </li>
+                <li><a href="users.php"
+                       class="<?php echo($_SERVER['PHP_SELF'] == "/VDKproject/categories/users.php" ? "active" : ""); ?>">Users</a>
+                </li>
+                <li><a href="histories.php"
+                       class="<?php echo($_SERVER['PHP_SELF'] == "/VDKproject/categories/histories.php" ? "active" : ""); ?>">Histories
+                        </a></li>
+                <li><a href="createUser.php"
+                       class="<?php echo($_SERVER['PHP_SELF'] == "/VDKproject/categories/createUser.php" ? "active" : ""); ?>">Create
+                        User</a></li>
+                <li><a href="searchuser.php"
+                       class="<?php echo($_SERVER['PHP_SELF'] == "/VDKproject/categories/searchuser.php" ? "active" : ""); ?>">Search
+                        User</a></li>
             </ul>
         </div>
         <div style="width: 20%" class="admin">
             <ul class="">
-                <li><a href="#">Admin: <?php if(isset($_SESSION['username']))echo $_SESSION['username']?></a></li>
-                <li><a href="../categories/auth/logout.php" >Logout</a></li>
+                <li><a href="#">Admin: <?php if (isset($_SESSION['username'])) echo $_SESSION['username'] ?></a></li>
+                <li><a href="../categories/auth/logout.php">Logout</a></li>
             </ul>
         </div>
     </div>

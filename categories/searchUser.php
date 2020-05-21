@@ -1,7 +1,7 @@
 <?php include "../includes/header.php";
 if (!isset($_SESSION['username'])) {
     header("Location: auth/login.php");
-}?>
+} ?>
 
 <?php if (isset($_GET['request'])) {
     $request = $_GET['request'];
