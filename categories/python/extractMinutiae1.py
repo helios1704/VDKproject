@@ -23,11 +23,11 @@ import math
 def faultMinutiae(minutiae, mask):
     (x, y) = minutiae[0:2]
     (x_mask, y_mask) = mask.shape
-    
+
     score = 500
     score_temp = 0
     (x_temp, y_temp) = (x, y)
-    
+
     while(x_temp >= 0):
         if(mask[x_temp][y]):
             score_temp += 1
@@ -36,7 +36,7 @@ def faultMinutiae(minutiae, mask):
             break
     if(score_temp < score):
         score = score_temp
-    
+
     x_temp = x
     score_temp = 0
     while(x_temp < x_mask):
@@ -47,8 +47,8 @@ def faultMinutiae(minutiae, mask):
             break
     if(score_temp < score):
         score = score_temp
-    
-    score_temp = 0    
+
+    score_temp = 0
     while(y_temp >= 0):
         if(mask[x],[y_temp]):
             score_temp += 1
@@ -57,8 +57,8 @@ def faultMinutiae(minutiae, mask):
             break
     if(score_temp < score):
         score = score_temp
-        
-    score_temp = 0    
+
+    score_temp = 0
     y_temp = y
     while(y_temp < y_mask):
         if(mask[x],[y_temp]):
@@ -68,14 +68,14 @@ def faultMinutiae(minutiae, mask):
             break
     if(score_temp < score):
         score = score_temp
-    
+
     if(score < 15):
         return True
     else:
         return False
-    
+
 def extractMinutiae(img, orientim, mask):
-    
+
     # extract minutiae
     rows, cols = img.shape
     minutiaeList = []
@@ -91,13 +91,13 @@ def extractMinutiae(img, orientim, mask):
                 if(CN == 1):
                     minutiaeList.append((i, j, orientim[i][j], 1))
                 elif(CN == 3):
-                    minutiaeList.append((i, j, orientim[i][j], 3))          
-    
-    # remove false minutiae    
+                    minutiaeList.append((i, j, orientim[i][j], 3))
+
+    # remove false minutiae
     ####### time 1 ##################
     SpuriousMin = []
     numPoints = len(minutiaeList)
-    
+
     # x_min = x_max = minutiaeList[0][0]
     # y_min = y_max = minutiaeList[0][1]
     # for i in range(1, numPoints):
@@ -109,24 +109,24 @@ def extractMinutiae(img, orientim, mask):
     #         y_min = minutiaeList[i][1]
     #     if(y_max < minutiaeList[i][1]):
     #         y_max = minutiaeList[i][1]
-    
+
     # for i in range(0, numPoints):
     #     x = minutiaeList[i][0]
     #     y = minutiaeList[i][1]
     #     if(x - x_min < 20 or x_max - x < 20 or y - y_min < 20 or y_max - y < 20):
     #         SpuriousMin.append(i)
-    
+
     for i in range(0, numPoints):
         if(faultMinutiae(minutiaeList[i], mask)):
             SpuriousMin.append(i)
-    
-    new = []          
+
+    new = []
     SpuriousMin = np.unique(SpuriousMin)
     for i in range(0, numPoints):
         if(not i in SpuriousMin):
             new.append(minutiaeList[i])
     ########################################
-    
+
     ###### time 2 ###########
     # SpuriousMin = []
     # numPoints = len(new)
@@ -141,21 +141,21 @@ def extractMinutiae(img, orientim, mask):
     #         y_min = new[i][1]
     #     if(y_max < new[i][1]):
     #         y_max = new[i][1]
-    
+
     # for i in range(0, numPoints):
     #     x = new[i][0]
     #     y = new[i][1]
     #     if(y - y_min < 5 or y_max - y < 5):
     #         SpuriousMin.append(i)
-    
-    # new2 = []          
+
+    # new2 = []
     # SpuriousMin = np.unique(SpuriousMin)
     # for i in range(0, numPoints):
     #     if(not i in SpuriousMin):
     #         new2.append(new[i])
     #######################################
-    
-    
+
+
     numPoints = len(new)
     SpuriousMin = []
     for i in range(0, numPoints - 1):
@@ -166,13 +166,13 @@ def extractMinutiae(img, orientim, mask):
             if(distance < 8):
                 SpuriousMin.append(i)
                 SpuriousMin.append(j)
-                
-    new1 = []          
+
+    new1 = []
     SpuriousMin = np.unique(SpuriousMin)
     for i in range(0, numPoints):
         if(not i in SpuriousMin):
             new1.append(new[i])
-    
+
     numPoints = len(new1)
     x_min = x_max = new1[0][0]
     y_min = y_max = new1[0][1]
@@ -185,11 +185,11 @@ def extractMinutiae(img, orientim, mask):
             y_min = new1[i][1]
         if(y_max < new1[i][1]):
             y_max = new1[i][1]
-    
+
     center = ((x_min + x_max)//2, (int)(y_min + y_max)//2, 0, 0)
-    
+
     return (new1, center)
-                     
+
 def matchingFingerprint(template_fg, input_fg):
     template_corePoint = template_fg[0]
     input_corePoint = input_fg[0]
@@ -210,9 +210,9 @@ def matchingFingerprint(template_fg, input_fg):
                 sd = np.sqrt((x - match_point[0])**2 + (y - match_point[1])**2)
                 if(sd <= 10):
                     score += 1
-                    break      
+                    break
     return score
-       
+
 def blockImage(orientim):
     r, c = orientim.shape
     rows = r//3
@@ -238,7 +238,7 @@ def detectCorePoint(or_im):
             #          orientim[i][j-2]*180/math.pi, orientim[i+1][j-2]*180/math.pi, orientim[i+2][j-2]*180/math.pi, orientim[i+2][j-1]*180/math.pi,
             #          orientim[i+2][j]*180/math.pi, orientim[i+2][j+1]*180/math.pi, orientim[i+2][j+2]*180/math.pi, orientim[i+1][j+2]*180/math.pi,
             #          orientim[i][j+2]*180/math.pi, orientim[i-1][j+2]*180/math.pi, orientim[i-2][j+2]*180/math.pi, orientim[i-2][j+1]*180/math.pi]
-            
+
             listR = [orientim[i-2][j]*180/math.pi, orientim[i-2][j+1]*180/math.pi, orientim[i-2][j+2]*180/math.pi, orientim[i-1][j+2]*180/math.pi,
                      orientim[i][j+2]*180/math.pi, orientim[i+1][j+2]*180/math.pi, orientim[i+2][j+2]*180/math.pi, orientim[i+2][j-1]*180/math.pi,
                      orientim[i+2][j]*180/math.pi, orientim[i+2][j-1]*180/math.pi, orientim[i+2][j-2]*180/math.pi, orientim[i+1][j-2]*180/math.pi,
@@ -276,19 +276,19 @@ def detectCorePoint(or_im):
                 A += 1
             if((listR[15] >= 120 and listR[15] < 180) or (listR[15] >=0 and listR[15] < 40)):
                 A += 1
-            
+
             if(A >= 15):
                 sum_cos = sum_sin = 0
                 for k in range(0, 16):
                     angle = listR[k]*math.pi/90
                     sum_cos += math.cos(angle)
                     sum_sin += math.sin(angle)
-                cons = math.sqrt(sum_cos**2 + sum_sin**2)/16     
+                cons = math.sqrt(sum_cos**2 + sum_sin**2)/16
                 if(cons_min > cons):
                     cons_min = cons
                     core = (i, j)
-    
-    
+
+
     if(len(core) == 0):
         cons_min = 500
         g_x, g_y = np.gradient(orientim)
@@ -308,11 +308,11 @@ def detectCorePoint(or_im):
                         angle = 2*listR[k]
                         sum_cos += math.cos(angle)
                         sum_sin += math.sin(angle)
-                        cons = math.sqrt(sum_cos**2 + sum_sin**2)/16     
+                        cons = math.sqrt(sum_cos**2 + sum_sin**2)/16
                         if(cons_min > cons):
                             cons_min = cons
                             core = (i, j)
-        
+
     if(len(core) == 0):
         core = (0, 0, 0, 0)
     else:
@@ -320,10 +320,10 @@ def detectCorePoint(or_im):
         x = x*3 + 1
         y = y*3 + 1
         core = (x, y, or_im[x][y], 0)
-    
+
     return core
-     
-######### read fingerprint image ##########   
+
+######### read fingerprint image ##########
 path = r'fingerprintTemp\temp.jpg'
 img = cv2.imread(path, 0)
 #img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -381,20 +381,17 @@ length = len(minutiaeList)
 for i in range(0, length):
     final_minutiae_list.append(minutiaeList[i])
 
-user_id = '000009'
-with open('fingerprintTemp/id_temp.txt', 'r') as id_temp:
-    user_id = id_temp.readline()
 
-with open('../fingerprintData/fingerpint_db.txt', 'a') as db_f:
-    db_f.write(user_id)
-    db_f.write('\n')
+with open('../fingerprintData/temp.txt', 'w') as db_f:
+    #db_f.write(user_id)
+    #db_f.write('\n')
     db_f.write(str(final_minutiae_list))
     db_f.write('\n')
-    
-    
+
+
 ##################################
 # skel = (skel == 0).astype(np.uint8)
-# skel = 255*skel   
+# skel = 255*skel
 # cv2.imshow('thinning image', skel)
 
 
@@ -421,9 +418,9 @@ with open('../fingerprintData/fingerpint_db.txt', 'a') as db_f:
 # skel[rr, cc] = 1
 
 # skel = (skel == 0).astype(np.uint8)
-# skel = 255*skel   
+# skel = 255*skel
 
-  
+
 # (x, y) = listCore2
 # (rr, cc) = skimage.draw.circle_perimeter(x, y, 3)
 # xa[rr, cc] = 0
@@ -448,7 +445,7 @@ with open('../fingerprintData/fingerpint_db.txt', 'a') as db_f:
 # cv2.imshow('im3', xa)
 #cv2.imshow('orient img', orientim)
 # mask = (mask == 0).astype(np.uint8)
-# mask = 255*mask   
+# mask = 255*mask
 # directory = r'C:\Users\Admin\.spyder-py3\enhanced'
 # os.chdir(directory)
 # cv2.imwrite('2_2.jpg', skel)

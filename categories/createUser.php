@@ -18,9 +18,11 @@ if (isset($_GET['request'])) {
     $request = $_GET['request'];
     $write = "<?php $" . "request='" . $request . "'; " . "echo $" . "request;" . " ?>";
     file_put_contents('sendRequest.php', $write);
-    $output = shell_exec("python python/test.py");
-    // $output = shell_exec("python python/toImage.py");
-    // $output = shell_exec("python python/extractMinutiae.py");
+    while ($data = file_get_contents("fileContainer.php") == "");
+    $output = shell_exec("python python/convertToImage.py");
+
+    // $output = shell_exec('python python/extractMinutiae.py');
+    file_put_contents('fileContainer.php', "");
     file_put_contents('sendRequest.php', "");
 }
 date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -32,9 +34,9 @@ if (isset($_POST['submit'])) {
     $sql = "INSERT INTO users(name, birthday, gender, created_at) VALUES ('$name', '$birthday', $gender,'$created_at')";
     $statement = $conn->prepare($sql);
     $statement->execute();
-    $output = shell_exec("python python/toImage.py");
+    //$output = shell_exec("python python/toImage.py");
     $output = shell_exec("python python/extractMinutiae.py");
-    file_put_contents('sendRequest.php', "");
+    //file_put_contents('sendRequest.php', "");
     header("Location: users.php");
 }
 ?>

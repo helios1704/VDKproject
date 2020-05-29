@@ -4,7 +4,7 @@ session_start();
 if (!isset($_SESSION['username'])) {
     header("Location: auth/login.php");
 }
-$sql_query = "SELECT histories.*, users.name FROM histories INNER JOIN users ON histories.user_id = users.id";
+$sql_query = "SELECT histories.*, users.name FROM histories LEFT JOIN users ON histories.user_id = users.id";
 $statement = $conn->prepare($sql_query);
 $statement->setFetchMode(PDO::FETCH_ASSOC);
 $statement->execute();
@@ -12,6 +12,7 @@ $row = $statement->fetchAll();
 //$userData = array();
 
 foreach ($row as $k => $v) {
+    $v['user_id'] == 0 ? $v['name'] = "Anonymous" : 1;
     $userData[] = array(
         'id' => $v['id'],
         'user_id' => $v['user_id'],

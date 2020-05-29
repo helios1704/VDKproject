@@ -1,6 +1,6 @@
 import serial
 
-ser = serial.Serial('COM10', baudrate = 1000000, timeout=1)
+ser = serial.Serial('COM16', baudrate = 1000000, timeout=1)
 file2 = open(r"python\data.txt","w")
 i = 0
 while (1)   :
@@ -9,4 +9,4 @@ while (1)   :
     file2.write(arduinoData)
     if (i>=290) :
         break
-serial.Serial('COM10', baudrate = 1000000).close()
+serial.Serial('COM16', baudrate = 1000000).close()
