@@ -50,7 +50,7 @@ def faultMinutiae(minutiae, mask):
     
     score_temp = 0    
     while(y_temp >= 0):
-        if(mask[x],[y_temp]):
+        if(mask[x][y_temp]):
             score_temp += 1
             y_temp -= 1
         else:
@@ -61,7 +61,7 @@ def faultMinutiae(minutiae, mask):
     score_temp = 0    
     y_temp = y
     while(y_temp < y_mask):
-        if(mask[x],[y_temp]):
+        if(mask[x][y_temp]):
             score_temp += 1
             y_temp += 1
         else:
@@ -69,7 +69,7 @@ def faultMinutiae(minutiae, mask):
     if(score_temp < score):
         score = score_temp
     
-    if(score < 15):
+    if(score < 20):
         return True
     else:
         return False
@@ -98,18 +98,8 @@ def extractMinutiae(img, orientim, mask):
     SpuriousMin = []
     numPoints = len(minutiaeList)
     
-    # x_min = x_max = minutiaeList[0][0]
-    # y_min = y_max = minutiaeList[0][1]
-    # for i in range(1, numPoints):
-    #     if(x_min > minutiaeList[i][0]):
-    #         x_min = minutiaeList[i][0]
-    #     if(x_max < minutiaeList[i][0]):
-    #         x_max = minutiaeList[i][0]
-    #     if(y_min > minutiaeList[i][1]):
-    #         y_min = minutiaeList[i][1]
-    #     if(y_max < minutiaeList[i][1]):
-    #         y_max = minutiaeList[i][1]
-    
+
+
     # for i in range(0, numPoints):
     #     x = minutiaeList[i][0]
     #     y = minutiaeList[i][1]
@@ -163,7 +153,7 @@ def extractMinutiae(img, orientim, mask):
             (X1, Y1) = new[i][0:2]
             (X2, Y2) = new[j][0:2]
             distance = np.sqrt((X2-X1)**2 + (Y2-Y1)**2)
-            if(distance < 8):
+            if(distance < 7):
                 SpuriousMin.append(i)
                 SpuriousMin.append(j)
                 
@@ -173,21 +163,34 @@ def extractMinutiae(img, orientim, mask):
         if(not i in SpuriousMin):
             new1.append(new[i])
     
-    numPoints = len(new1)
-    x_min = x_max = new1[0][0]
-    y_min = y_max = new1[0][1]
+
+   # x_min = x_max = new1[0][0]
+   # y_min = y_max = new1[0][1]
+   # for i in range(1, numPoints):
+   #     if(x_min > new1[i][0]):
+   #         x_min = new1[i][0]
+   #     if(x_max < new1[i][0]):
+   #         x_max = new1[i][0]
+   #     if(y_min > new1[i][1]):
+   #         y_min = new1[i][1]
+   #      if(y_max < new1[i][1]):
+   #         y_max = new1[i][1]
+
+    x_min = x_max = minutiaeList[0][0]
+    y_min = y_max = minutiaeList[0][1]
     for i in range(1, numPoints):
-        if(x_min > new1[i][0]):
-            x_min = new1[i][0]
-        if(x_max < new1[i][0]):
-            x_max = new1[i][0]
-        if(y_min > new1[i][1]):
-            y_min = new1[i][1]
-        if(y_max < new1[i][1]):
-            y_max = new1[i][1]
-    
+        if(x_min > minutiaeList[i][0]):
+            x_min = minutiaeList[i][0]
+        if(x_max < minutiaeList[i][0]):
+            x_max = minutiaeList[i][0]
+        if(y_min > minutiaeList[i][1]):
+            y_min = minutiaeList[i][1]
+        if(y_max < minutiaeList[i][1]):
+            y_max = minutiaeList[i][1]
+
+
     center = ((x_min + x_max)//2, (int)(y_min + y_max)//2, 0, 0)
-    
+
     return (new1, center)
                      
 def matchingFingerprint(template_fg, input_fg):
@@ -329,7 +332,7 @@ img = cv2.imread(path, 0)
 #img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 ###########################################
 # ret, img = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
-img = cv2.resize(src=img, dsize=None, fx=2, fy=1)
+#img = cv2.resize(src=img, dsize=None, fx=2, fy=1)
 
 ################################
 # cv2.imshow('original image', img)
@@ -381,7 +384,7 @@ length = len(minutiaeList)
 for i in range(0, length):
     final_minutiae_list.append(minutiaeList[i])
 
-user_id = '000009'
+#user_id = '000009'
 with open('fingerprintTemp/id_temp.txt', 'r') as id_temp:
     user_id = id_temp.readline()
 

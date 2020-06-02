@@ -10,9 +10,9 @@ if (!isset($_SESSION['username'])) {
 } ?>
     <script>
         $(document).ready(function () {
-            $("#getFile").load("fileContainer.php");
+            $("#getFile").load("dataContainer.php");
             setInterval(function () {
-                $("#getFile").load("fileContainer.php");
+                $("#getFile").load("dataContainer.php");
             }, 500);
 
             setInterval(function () {

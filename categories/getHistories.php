@@ -12,7 +12,7 @@ $row = $statement->fetchAll();
 //$userData = array();
 
 foreach ($row as $k => $v) {
-    $v['user_id'] == 0 ? $v['name'] = "Anonymous" : 1;
+    $v['user_id'] == 0 ? $v['name'] = "<b>Anonymous</b>" : 1;
     $userData[] = array(
         'id' => $v['id'],
         'user_id' => $v['user_id'],
@@ -22,6 +22,7 @@ foreach ($row as $k => $v) {
             '<button style="padding: 4px 4px" type="button" name="delete" id="' . $v["id"] . '" class="btn btn-danger btn-xs delete" >Delete</button>',
     );
 }
+//print_r($userData);
 $output = array(
     "data" => $userData
 );

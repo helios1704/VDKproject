@@ -1,4 +1,5 @@
 <?php session_start();
+//die($_SERVER['PHP_SELF']);
 ?>
 
 <!doctype html>
@@ -28,19 +29,19 @@
         <div style="width: 80%">
             <ul class="">
                 <li><a href="index.php"
-                       class="<?php echo($_SERVER['PHP_SELF'] == "/VDKproject/categories/index.php" ? "active" : ""); ?>">Home</a>
+                       style="<?php echo($_SERVER['PHP_SELF'] == "/vdkproject/categories/index.php" ? "background-color: #333" : ""); ?>">Home</a>
                 </li>
                 <li><a href="users.php"
-                       class="<?php echo($_SERVER['PHP_SELF'] == "/VDKproject/categories/users.php" ? "active" : ""); ?>">Users</a>
+                       style="<?php echo($_SERVER['PHP_SELF'] == "/vdkproject/categories/users.php" ? "background-color: #333" : ""); ?>">Users</a>
                 </li>
                 <li><a href="histories.php"
-                       class="<?php echo($_SERVER['PHP_SELF'] == "/VDKproject/categories/histories.php" ? "active" : ""); ?>">Histories
-                        </a></li>
+                       style="<?php echo($_SERVER['PHP_SELF'] == "/vdkproject/categories/histories.php" ? "background-color: #333" : ""); ?>">Histories</a>
+                </li>
                 <li><a href="createUser.php"
-                       class="<?php echo($_SERVER['PHP_SELF'] == "/VDKproject/categories/createUser.php" ? "active" : ""); ?>">Create
+                       style="<?php echo($_SERVER['PHP_SELF'] == "/vdkproject/categories/createUser.php" ? "background-color: #333" : ""); ?>">Create
                         User</a></li>
                 <li><a href="searchuser.php"
-                       class="<?php echo($_SERVER['PHP_SELF'] == "/VDKproject/categories/searchuser.php" ? "active" : ""); ?>">Search
+                       style="<?php echo($_SERVER['PHP_SELF'] == "/vdkproject/categories/searchuser.php" ? "background-color: #333" : ""); ?>">Search
                         User</a></li>
             </ul>
         </div>

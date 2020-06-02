@@ -31,7 +31,7 @@ html {
     background-color: #3e8e41;
 }
 
-.topnav ul li a.active {
+.topnav ul li a .active {
     background-color: #333;
 }
 

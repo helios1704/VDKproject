@@ -9,6 +9,9 @@
 //$output = shell_exec("python python/matchFingerprint.py");
 //file_put_contents("fileContainer.php","");
 //file_put_contents("sendRequest.php","");
+//file_put_contents('sendRequest.php', "create");
+//$output = shell_exec("python python/extractMinutiae.py");
 
-$output = shell_exec("python python/test1.py tranvansi");
+$output = shell_exec("python python/convertToImage.py");
+
 echo $output;

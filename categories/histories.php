@@ -19,7 +19,7 @@ if (!isset($_SESSION['username'])) {
 <script>
     $(document).ready(function () {
         table = $('#historyTable').DataTable({
-            pageLength: 7,
+            pageLength: 10,
             bLengthChange: false,
             order: [[0, "desc"]],
             serverMethod: 'post',

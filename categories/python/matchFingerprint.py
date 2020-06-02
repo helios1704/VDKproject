@@ -19,6 +19,7 @@ def matchingFingerprint(template_fg, input_fg):
     diff_x = input_corePoint[0] - template_corePoint[0]
     diff_y = input_corePoint[1] - template_corePoint[1]
     score = 0
+    numberOfMatchingInTemplate = np.zeros(template_len, dtype = int)
     for i in range(1, input_len):
         point = input_fg[i]
         x = point[0] - diff_x
@@ -30,9 +31,11 @@ def matchingFingerprint(template_fg, input_fg):
             if(match_point[3] == point[3]):
                 sd = np.sqrt((x - match_point[0])**2 + (y - match_point[1])**2)
                 dd = min(abs(match_point[2] - point[2]), (math.pi - abs(match_point[2] - point[2])))
-                if(sd <= 25 and dd < math.pi/18):
-                    score += 1
-                    break    
+                if(sd <= 30 and dd < math.pi/24):
+                    if(numberOfMatchingInTemplate[j] < 2):
+                        numberOfMatchingInTemplate[j] += 1
+                        score += 1
+                        break
     
     score = score*2/(template_len + input_len - 2)
     
@@ -167,7 +170,7 @@ with open('../fingerprintData/fingerpint_db.txt', 'r') as rdb: # file txt databa
         if(isMatch):
             print('1-' + highest_id)
         else:
-            print('0-0')
+            print('2-0')
 
 
         

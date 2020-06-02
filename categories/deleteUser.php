@@ -12,6 +12,5 @@ if (isset($_POST['empId'])) {
     $sql1 = "DELETE FROM users WHERE id = $empId";
     $statement = $conn->prepare($sql1);
     $statement->execute();
-
     $output = shell_exec("python python/deleteUser.py $empId");
 }

@@ -1,4 +1,5 @@
 <?php
+//die($_SERVER['PHP_SELF']);
 include "../includes/header.php";
 if (!isset($_SESSION['username'])) {
     header("Location: auth/login.php");

@@ -12,7 +12,7 @@ import os
 
 data = []
 
-with open(r'fileContainer.php', 'r') as db:
+with open(r'dataContainer.php', 'r') as db:
     for i in range(0, 287):
         array = []
         packet = db.readline()
@@ -20,7 +20,7 @@ with open(r'fileContainer.php', 'r') as db:
             break
         #print(packet)
         arr_packet = packet.split()
-        for i in range(0, 16):
+        for i in range(0, 32):
             x = int(arr_packet[i])
             array_temp = []
             while(x != 0):
@@ -34,8 +34,6 @@ with open(r'fileContainer.php', 'r') as db:
             for j in range (7, -1, -1):
                 array.append(array_temp[j])
         data.append(array)
-
-
 
 num_arr = np.array(data)
 num_arr = (num_arr == 1).astype(np.uint8)

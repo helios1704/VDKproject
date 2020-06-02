@@ -14,7 +14,7 @@ $statement->execute();
 $data = $statement->fetch(PDO::FETCH_ASSOC);
 
 file_put_contents('temp.php', "");
-file_put_contents('fileContainer.php', "");
+file_put_contents('dataContainer.php', "");
 file_put_contents('sendRequest.php', "");
 
 ?>
