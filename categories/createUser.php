@@ -18,7 +18,7 @@ if (isset($_GET['request'])) {
     $request = $_GET['request'];
     $write = "<?php $" . "request='" . $request . "'; " . "echo $" . "request;" . " ?>";
     file_put_contents('sendRequest.php', $write);
-    while ($data = file_get_contents("status.php") == "") ;
+    while ($data = file_get_contents("status.php") != "OKE") ;
     $output = shell_exec("python python/convertToImage.py");
     // $output = shell_exec('python python/extractMinutiae.py');
     file_put_contents('dataContainer.php', "");
@@ -37,7 +37,7 @@ if (isset($_POST['submit'])) {
     //$output = shell_exec("python python/toImage.py");
     $output = shell_exec("python python/extractMinutiae.py");
     //file_put_contents('sendRequest.php', "");
-    unlink('fingerprintTemp/temp.jpg');
+    //unlink('fingerprintTemp/temp.jpg');
     header("Location: users.php");
 }
 ?>
@@ -54,7 +54,7 @@ if (isset($_POST['submit'])) {
                 data: {request: 'create'},
                 success: function (data) {
                     d = new Date();
-                    alert("Oke - Da nhap xong van tay!");
+                    alert("Oke - DONE!");
                     $("#command").html("");
                     // $("#fingerprint_data").html("<img src='fingerprintTemp/temp.jpg' id='fingerprint_img'>");
                     $("#fingerprint_data").attr("hidden", false);

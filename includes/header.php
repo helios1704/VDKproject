@@ -40,9 +40,9 @@
                 <li><a href="createUser.php"
                        style="<?php echo($_SERVER['PHP_SELF'] == "/vdkproject/categories/createUser.php" ? "background-color: #333" : ""); ?>">Create
                         User</a></li>
-                <li><a href="searchuser.php"
-                       style="<?php echo($_SERVER['PHP_SELF'] == "/vdkproject/categories/searchuser.php" ? "background-color: #333" : ""); ?>">Search
-                        User</a></li>
+<!--                <li><a href="searchuser.php"-->
+<!--                       style="--><?php //echo($_SERVER['PHP_SELF'] == "/vdkproject/categories/searchuser.php" ? "background-color: #333" : ""); ?><!--">Search-->
+<!--                        User</a></li>-->
             </ul>
         </div>
         <div style="width: 20%" class="admin">

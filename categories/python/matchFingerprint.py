@@ -31,7 +31,7 @@ def matchingFingerprint(template_fg, input_fg):
             if(match_point[3] == point[3]):
                 sd = np.sqrt((x - match_point[0])**2 + (y - match_point[1])**2)
                 dd = min(abs(match_point[2] - point[2]), (math.pi - abs(match_point[2] - point[2])))
-                if(sd <= 30 and dd < math.pi/24):
+                if(sd <= 35 and dd < math.pi/24):
                     if(numberOfMatchingInTemplate[j] < 2):
                         numberOfMatchingInTemplate[j] += 1
                         score += 1
@@ -124,7 +124,7 @@ def matchingFingerprint2(template_fg, input_fg):
 #     score = score*2/(template_len + input_len)
 #     return (match_list, score)
 
-threshold = 0.25
+threshold = 0.2
 with open('../fingerprintData/fingerpint_db.txt', 'r') as rdb: # file txt database
     with open('../fingerprintData/temp.txt', 'r') as idb: # file txt chua du lieu cua van tay can so khop
         # user_id = rdb.readline()

@@ -13,7 +13,7 @@ import os
 data = []
 
 with open(r'dataContainer.php', 'r') as db:
-    for i in range(0, 287):
+    for i in range(0, 286):
         array = []
         packet = db.readline()
         if not packet:
