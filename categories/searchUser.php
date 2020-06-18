@@ -19,7 +19,6 @@ if (!isset($_SESSION['username'])) {
                 $("#command2").load("temp.php");
             }, 500);
             $("#btnRequest").click(function () {
-
                 $.ajax({
                     type: 'get',
                     url: 'searchUser.php',

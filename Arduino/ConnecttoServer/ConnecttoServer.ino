@@ -4,12 +4,10 @@
 #include <Adafruit_Fingerprint.h>
 //D1 - 17
 //D2 - 16
-//create: 1
-//search: 2
 char recStr[10];
-const char* ssid = "Heliosss";  //ENTER YOUR WIFI SETTINGS
-const char* password = "8888888889";
-const String host = "192.168.43.109";
+const char* ssid = "Helioss";  //ENTER YOUR WIFI SETTINGS
+const char* password = "11235813";
+const String host = "192.168.1.4";
 uint8_t *arrayData;
 
 SoftwareSerial SUART(4, 5);  //D2, D1 = SRX, STX
@@ -47,13 +45,11 @@ void setup() {
     while (1) {
       delay(1);
     }
-    Serial.println("OKe");
   }
 }
 
 void loop() {
   String payload, postData = "data=";
-  //Serial.println(receiveRequestfromArduino());
   if (receiveRequestfromArduino() == "InputFinger") {
     arrayData = new uint8_t[9216];
     http.begin("http://" + host + "/VDKproject/categories/matchFingerprint.php");
@@ -61,7 +57,7 @@ void loop() {
     Serial.println("Nhap van tay");
     uint8_t x =  getFingerprintEnroll();
     Serial.println();
-    Serial.println("OKe");
+    Serial.println("Oke");
 
     for (int i = 0 ; i < 4608; i++) {
       postData += String(arrayData[i]);
@@ -116,14 +112,12 @@ void loop() {
       }
     }
     Serial.println(payload);
-    // SUART.print("<0>");
     SUART.print("<" + payload.substring(0, 1) + ">");
     SUART.print("<0>");
     http.end();
   }
   else {
     http.begin("http://" + host + "/VDKproject/categories/sendRequest.php");
-    //http.addHeader("Content-Type", "application/x-www-form-urlencoded");    //Specify content-type header
     int httpCode = http.GET();
     payload = http.getString();
     Serial.println(httpCode);   //Print HTTP return code

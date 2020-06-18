@@ -31,6 +31,7 @@ if ($data == "OKE") {
 
 
 //Connect to Localhost
+
 //include "database\connect.php";
 //$data = $_POST["data"];
 //$write = "$data";

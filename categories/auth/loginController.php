@@ -11,10 +11,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $row = $statement->fetchAll();
     if ($row != null) {
         $_SESSION['username'] = $username;
-     //   print_r($_SESSION) ;
         header("Location: ../index.php");
-    }
-    else {
+    } else {
         header("Location: login.php");
     }
 }
