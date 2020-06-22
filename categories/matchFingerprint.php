@@ -12,6 +12,7 @@ if ($data == "OKE") {
     //$output = shell_exec("python python/matchFingerprint.py");
     $output = shell_exec("python python/fingerprint.py");
     $write = "$output";
+    file_put_contents('dataContainer.php', "");
     file_put_contents('matchResult.php', $write);
     date_default_timezone_set('Asia/Ho_Chi_Minh');
     $user_id = (int)substr($output, 2);
@@ -20,7 +21,6 @@ if ($data == "OKE") {
     $statement = $conn->prepare($sql);
     $statement->execute();
     //file_put_contents('sendRequest.php', "");
-    file_put_contents('dataContainer.php', "");
 } else {
 //file_put_contents('dataContainer.php', $write);
     $fp = fopen('dataContainer.php', 'a');//opens file in append mode

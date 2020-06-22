@@ -5,9 +5,9 @@
 //D1 - 17
 //D2 - 16
 char recStr[10];
-const char* ssid = "Helioss";  //ENTER YOUR WIFI SETTINGS
-const char* password = "11235813";
-const String host = "192.168.1.4";
+const char* ssid = "Heliosss";  //ENTER YOUR WIFI SETTINGS
+const char* password = "8888888889";
+const String host = "192.168.43.109";
 uint8_t *arrayData;
 
 SoftwareSerial SUART(4, 5);  //D2, D1 = SRX, STX
@@ -93,7 +93,7 @@ void loop() {
     //postData = "";
     http.end();
 
-    delay(1500);
+    delay(1000);
     postData = "";
     payload = "0-0";
     int dem = 0;
@@ -229,10 +229,9 @@ void loop() {
         }
       }
       Serial.println(payload);
-      //SUART.print("<0>");
-      // SUART.print("<" + payload.substring(0, 1) + ">");
-      //SUART.print("<0>");
-      //http.end();
+      SUART.print("<" + payload.substring(0, 1) + ">");
+      SUART.print("<0>");
+      http.end();
     }
     else {
       //SUART.print("<0>"); //sending create command
@@ -352,7 +351,7 @@ String receiveRequestfromArduino() {
   {
     char recStr[10] = "";
     return "InputFinger";
-  }
+  } 
   else {
     char recStr[10] = "";
     return "Nope";
