@@ -16,10 +16,13 @@ if (!isset($_SESSION['username'])) {
         </thead>
     </table>
 </div>
+<form action="ExporttoExcel.php" method="">
+    <input type="submit" value="Export to excel file">
+</form>
 <script>
     $(document).ready(function () {
         table = $('#historyTable').DataTable({
-            pageLength: 10,
+            pageLength: 8,
             bLengthChange: false,
             order: [[0, "desc"]],
             serverMethod: 'post',

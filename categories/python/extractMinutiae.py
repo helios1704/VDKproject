@@ -19,7 +19,6 @@ import skimage
 from skimage.morphology import skeletonize
 from enhanced import image_enhance, ridge_orient
 import math
-import time
 
 BORDER_DISTANCE = 15
 
@@ -319,8 +318,6 @@ def findRidgeWidth(img):
     return ridgeWidth
 
 ######### read fingerprint image ##########
-
-start_time = time.time()
 
 path = r'fingerprintTemp\temp.jpg'
 

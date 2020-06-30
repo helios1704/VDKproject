@@ -3,11 +3,9 @@ session_start();
 if (!isset($_SESSION['username'])) {
     header("Location: auth/login.php");
 }
-$file = "";
-if (isset($_GET['file'])) {
-    $file = $_GET['file'];
-}
-$sql = "SELECT * FROM users WHERE fingerprint='$file'";
+$result = file_get_contents('matchResult.php');
+$user_id = (int)substr($result, 2);
+$sql = "SELECT * FROM users WHERE id = $user_id";
 $statement = $conn->prepare($sql);
 
 $statement->execute();

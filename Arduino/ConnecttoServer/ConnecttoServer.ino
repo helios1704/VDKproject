@@ -41,7 +41,7 @@ void setup() {
     Serial.println("Found fingerprint sensor!");
   }
   else {
-    Serial.println("Did not find fingerprint sensor :(");
+    Serial.println("Did not find fingerprint sensor");
     while (1) {
       delay(1);
     }
@@ -125,7 +125,6 @@ void loop() {
     if (payload == "create")
     {
       arrayData = new uint8_t[9216];
-      //http.end();
       http.begin("http://" + host + "/VDKproject/categories/getData.php");
       http.addHeader("Content-Type", "application/x-www-form-urlencoded");    //Specify content-type header
       Serial.println("Nhap van tay");
@@ -167,9 +166,9 @@ void loop() {
       //postData = "";
       http.end();
     }
-    else if (payload == "match") {
+    else if (payload == "search") {
       arrayData = new uint8_t[9216];
-      http.begin("http://" + host + "/VDKproject/categories/matchFingerprint.php");
+      http.begin("http://" + host + "/VDKproject/categories/searchFingerprint.php");
       http.addHeader("Content-Type", "application/x-www-form-urlencoded");    //Specify content-type header
       Serial.println("Nhap van tay");
       uint8_t x =  getFingerprintEnroll();
@@ -187,7 +186,7 @@ void loop() {
       Serial.println(httpCode);
       http.end();
 
-      http.begin("http://" + host + "/VDKproject/categories/matchFingerprint.php");
+      http.begin("http://" + host + "/VDKproject/categories/searchFingerprint.php");
       http.addHeader("Content-Type", "application/x-www-form-urlencoded");    //Specify content-type header
       postData = "data=";
       for (int i = 4608 ; i < 9184; i++) {
@@ -201,40 +200,16 @@ void loop() {
       httpCode = http.POST(postData);   //Send the request
       Serial.println(httpCode);   //Print HTTP return code
       http.end();
-
-      http.begin("http://" + host + "/VDKproject/categories/matchFingerprint.php");
+	    delay(50);
+      http.begin("http://" + host + "/VDKproject/categories/searchFingerprint.php");
       http.addHeader("Content-Type", "application/x-www-form-urlencoded");    //Specify content-type header
       postData = "data=OKE";
       httpCode = http.POST(postData);
       Serial.println(httpCode); //Send the request
       //postData = "";
-      http.end();
-
-      delay(3000);
-      postData = "";
-      payload = "0-0";
-      int dem = 0;
-      while (payload.substring(0, 1) != "1" && payload.substring(0, 1) != "2") {
-        http.begin("http://" + host + "/VDKproject/categories/matchResult.php");
-        httpCode = http.GET();
-        payload = http.getString();
-        Serial.print(dem);
-        Serial.println(" : " + payload);
-        http.end();
-        delay(100);
-        dem++;
-        if (dem == 100) {
-          //payload = "3-0";
-          break;
-        }
-      }
-      Serial.println(payload);
-      SUART.print("<" + payload.substring(0, 1) + ">");
-      SUART.print("<0>");
       http.end();
     }
     else {
-      //SUART.print("<0>"); //sending create command
     }
   }
   http.end();
@@ -313,7 +288,6 @@ uint8_t getFingerprintEnroll() {
           }
 
           if (dem == 4) {
-            // postData += String(number) + " ";
             Serial.print(count + 1);
             *(arrayData + count) = number;
             Serial.print(":");
@@ -324,10 +298,6 @@ uint8_t getFingerprintEnroll() {
             number = 0;
             line++;
           }
-          //          if (line == 32 ) {
-          //            postData += "\n";
-          //            line = 0;
-          //          }
         }
         a++;
       }
@@ -336,7 +306,6 @@ uint8_t getFingerprintEnroll() {
       while (mySerial.available()) {
         mySerial.read();
       }
-      // Serial.print("Da lay van tay");
       break;
     }
   }

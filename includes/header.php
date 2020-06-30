@@ -1,5 +1,4 @@
 <?php session_start();
-//die($_SERVER['PHP_SELF']);
 ?>
 
 <!doctype html>
@@ -11,9 +10,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
-
-    <!-- <script src="../assets/js/bootstrap.js"></script> -->
-    <!--    <script src="../assets/js/jquery.min.js"></script>-->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
@@ -40,9 +36,9 @@
                 <li><a href="createUser.php"
                        style="<?php echo($_SERVER['PHP_SELF'] == "/vdkproject/categories/createUser.php" ? "background-color: #333" : ""); ?>">Create
                         User</a></li>
-<!--                <li><a href="searchuser.php"-->
-<!--                       style="--><?php //echo($_SERVER['PHP_SELF'] == "/vdkproject/categories/searchuser.php" ? "background-color: #333" : ""); ?><!--">Search-->
-<!--                        User</a></li>-->
+                <li><a href="searchuser.php"
+                       style="<?php echo($_SERVER['PHP_SELF'] == "/vdkproject/categories/searchuser.php" ? "background-color: #333" : ""); ?>">Search
+                        User</a></li>
             </ul>
         </div>
         <div style="width: 20%" class="admin">

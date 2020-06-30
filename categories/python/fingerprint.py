@@ -431,7 +431,7 @@ for i in range(0, length):
     final_minutiae_list.append(minutiaeList[i])
 
 
-threshold = 0.3
+threshold = 0.35
 with open('../fingerprintData/fingerpint_db.txt', 'r') as rdb: # file txt database
     highest_score = -1
     highest_id = ''
@@ -444,14 +444,14 @@ with open('../fingerprintData/fingerpint_db.txt', 'r') as rdb: # file txt databa
         if not minutiaeList:
             break
         minutiaeList = eval(minutiaeList)
-        score = matchingFingerprint(minutiaeList, final_minutiae_list)
+        score1 = matchingFingerprint(minutiaeList, final_minutiae_list)
+        score2 = matchingFingerprint(final_minutiae_list, minutiaeList)
+        score = (score1 + score2)/2
         if(score >= threshold and highest_score < score):
             isMatch = True
             highest_id = user_id
             highest_score = score
-            
 
-        
     if(isMatch):
         print('1-' + highest_id)
     else:

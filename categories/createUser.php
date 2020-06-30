@@ -8,19 +8,11 @@ include "database/connect.php";
 
 <?php
 if (isset($_GET['request'])) {
-    $sql = "SELECT max(id) as id FROM users";
-    $statement = $conn->prepare($sql);
-    $statement->setFetchMode(PDO::FETCH_ASSOC);
-    $statement->execute();
-    $row = $statement->fetchAll();
-    $write = (int)$row[0]['id'] + 1;
-    file_put_contents('fingerprintTemp/id_temp.txt', "$write");
     $request = $_GET['request'];
     $write = "<?php $" . "request='" . $request . "'; " . "echo $" . "request;" . " ?>";
     file_put_contents('sendRequest.php', $write);
     while ($data = file_get_contents("status.php") != "OKE") ;
     $output = shell_exec("python python/convertToImage.py");
-    // $output = shell_exec('python python/extractMinutiae.py');
     file_put_contents('dataContainer.php', "");
     file_put_contents('status.php', "");
     file_put_contents('sendRequest.php', "");
@@ -34,19 +26,22 @@ if (isset($_POST['submit'])) {
     $sql = "INSERT INTO users(name, birthday, gender, created_at) VALUES ('$name', '$birthday', $gender,'$created_at')";
     $statement = $conn->prepare($sql);
     $statement->execute();
-    //$output = shell_exec("python python/toImage.py");
+
+    $sql = "SELECT max(id) as id FROM users";
+    $statement = $conn->prepare($sql);
+    $statement->setFetchMode(PDO::FETCH_ASSOC);
+    $statement->execute();
+    $row = $statement->fetchAll();
+    $write = (int)$row[0]['id'];
+    file_put_contents('fingerprintTemp/id_temp.txt', "$write");
     $output = shell_exec("python python/extractMinutiae.py");
-    //file_put_contents('sendRequest.php', "");
-    //unlink('fingerprintTemp/temp.jpg');
     header("Location: users.php");
 }
 ?>
 
 <script>
     $(document).ready(function () {
-
         $("#btnRequest").click(function () {
-            //$("#fingerprint_data").attr("hidden", true);
             $("#command").html("Place your finger on the sensor!");
             $.ajax({
                 type: 'get',
@@ -56,7 +51,6 @@ if (isset($_POST['submit'])) {
                     d = new Date();
                     alert("Oke - DONE!");
                     $("#command").html("");
-                    // $("#fingerprint_data").html("<img src='fingerprintTemp/temp.jpg' id='fingerprint_img'>");
                     $("#fingerprint_data").attr("hidden", false);
                     $("#fingerprint_img").attr("src", "fingerprintTemp/temp.jpg?" + d.getTime());
                 }

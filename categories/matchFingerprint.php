@@ -1,5 +1,5 @@
 <?php
-//Connect to Localhost - Copy
+
 include "database\connect.php";
 $data = $_POST["data"];
 $write = "$data";
