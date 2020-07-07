@@ -18,8 +18,6 @@ foreach ($row as $k => $v) {
         'user_id' => $v['user_id'],
         'name' => $v['name'],
         'time' => date("H:i:s d/m/Y", strtotime($v['time'])),
-        'action' => '<button style="padding: 4px 4px" type="button" name="edit" id="' . $v["id"] . '" class="btn btn-warning btn-xs edit">Edit</button>|' .
-            '<button style="padding: 4px 4px" type="button" name="delete" id="' . $v["id"] . '" class="btn btn-danger btn-xs delete" >Delete</button>',
     );
 }
 //print_r($userData);

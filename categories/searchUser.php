@@ -21,21 +21,25 @@ if (!isset($_SESSION['username'])) {
                 setInterval(function () {
                     //alert("DONE!");
                     $("#show_user_data").load("readDB.php");
-                }, 100);
+                }, 50);
                 $("#command").html("Place your finger on the sensor!");
                 $.ajax({
                     type: 'get',
                     url: 'searchUser.php',
                     data: {request: 'search'},
                     success: function (data) {
-                        $("#command").html("");
+                        // if ($("#user_id").text() == "--------") {
+                            $("#command").html("");
+                        // } else {
+                        //
+                        //     $("#command").html("Anonymous");
+                        // }
                     }
                 });
             });
         });
     </script>
     <link rel="stylesheet" href="../assets/css/searchUser.css">
-    <p id="getFile" hidden></p>
     <div id="show_user_data" class="container-sm" style="width: 60%; margin-top: 20px">
         <form>
             <table class="frame" cellpadding="0" cellspacing="1">
@@ -50,7 +54,7 @@ if (!isset($_SESSION['username'])) {
                             <tr class="">
                                 <td style="width:20%">ID</td>
                                 <td style="width:20%; font-weight:bold">:</td>
-                                <td style="width:30%">--------</td>
+                                <td style="width:30%" id="user_id">--------</td>
                             </tr>
                             <tr bgcolor="#f2f2f2">
                                 <td>Name</td>

@@ -172,7 +172,7 @@ def matchingFingerprint(template_fg, input_fg):
             if(match_point[3] == point[3]):
                 sd = np.sqrt((x - match_point[0])**2 + (y - match_point[1])**2)
                 dd = min(abs(match_point[2] - point[2]), (math.pi - abs(match_point[2] - point[2])))
-                if(sd <= 25 and dd <= math.pi/24):
+                if(sd <= 15 and dd <= math.pi/18):
                     if(numberOfMatchingInTemplate[j] < 2):
                         numberOfMatchingInTemplate[j] += 1
                         score += 1
@@ -431,7 +431,7 @@ for i in range(0, length):
     final_minutiae_list.append(minutiaeList[i])
 
 
-threshold = 0.35
+threshold = 0.25
 with open('../fingerprintData/fingerpint_db.txt', 'r') as rdb: # file txt database
     highest_score = -1
     highest_id = ''

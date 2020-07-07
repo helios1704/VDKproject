@@ -7,11 +7,9 @@ $result = file_get_contents('matchResult.php');
 $user_id = (int)substr($result, 2);
 $sql = "SELECT * FROM users WHERE id = $user_id";
 $statement = $conn->prepare($sql);
-
 $statement->execute();
 $data = $statement->fetch(PDO::FETCH_ASSOC);
 
-file_put_contents('temp.php', "");
 file_put_contents('dataContainer.php', "");
 file_put_contents('sendRequest.php', "");
 
@@ -34,7 +32,7 @@ file_put_contents('sendRequest.php', "");
                         <tr class="">
                             <td style="width: 20%">ID</td>
                             <td style="width: 20%;font-weight:bold">:</td>
-                            <td style="width: 30%"><?php
+                            <td style="width: 30%" id="user_id"><?php
                                 if ($data['id'] != null) echo $data['id'];
                                 else echo "--------" ?></td>
                         </tr>

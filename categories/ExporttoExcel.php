@@ -11,7 +11,7 @@ $statement->execute();
 $row = $statement->fetchAll();
 
 $tab = "\t";
-$file_ending = "xls";
+
 //header info for browser
 header("Content-Type: application/xls");
 header("Content-Disposition: attachment; filename=histories.xls");

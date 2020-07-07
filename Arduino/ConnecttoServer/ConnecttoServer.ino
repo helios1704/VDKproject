@@ -66,6 +66,7 @@ void loop() {
         postData += " ";
       }
     }
+
     int httpCode = http.POST(postData);//Send the request
     Serial.println(httpCode);
     http.end();
@@ -81,7 +82,7 @@ void loop() {
       }
     }
     delete[] arrayData;
-    httpCode = http.POST(postData);   //Send the request
+    httpCode = http.POST(postData);
     Serial.println(httpCode);   //Print HTTP return code
     http.end();
 
@@ -89,7 +90,7 @@ void loop() {
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");    //Specify content-type header
     postData = "data=OKE";
     httpCode = http.POST(postData);
-    Serial.println(httpCode); //Send the request
+    Serial.println(httpCode);
     //postData = "";
     http.end();
 
@@ -139,7 +140,7 @@ void loop() {
           postData += " ";
         }
       }
-      int httpCode = http.POST(postData);//Send the request
+      int httpCode = http.POST(postData);
       Serial.println(httpCode);
       http.end();
 
@@ -154,7 +155,7 @@ void loop() {
         }
       }
       delete[] arrayData;
-      httpCode = http.POST(postData);   //Send the request
+      httpCode = http.POST(postData);
       Serial.println(httpCode);   //Print HTTP return code
       http.end();
 
@@ -162,8 +163,7 @@ void loop() {
       http.addHeader("Content-Type", "application/x-www-form-urlencoded");    //Specify content-type header
       postData = "data=OKE";
       httpCode = http.POST(postData);
-      Serial.println(httpCode); //Send the request
-      //postData = "";
+      Serial.println(httpCode);
       http.end();
     }
     else if (payload == "search") {
@@ -248,7 +248,7 @@ uint8_t getFingerprintEnroll() {
       break;
     default:
       //Serial.print("Unknown error ");
-      // Serial.println(p);
+      //Serial.println(p);
       return p1;
   }
   // Filtering The Packet
